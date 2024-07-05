@@ -24,6 +24,13 @@ Route::post('/auth/signup', [RegisteredUserController::class, 'store']);
 Route::post('/auth/login', [SessionController::class, 'store']);
 Route::post('/auth/logout', [SessionController::class, 'destroy']);
 
+// User Data
+Route::group([
+    'middleware' => ['auth:sanctum']
+], function () {
+    Route::get('me', [SessionController::class, 'me']);
+});
+
 // Like and Dislike Functionality
 Route::post('/questions/{questionId}/like-unlike-question', [LikeController::class, 'store'])
     ->middleware('auth');
