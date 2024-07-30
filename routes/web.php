@@ -22,7 +22,10 @@ Route::get('/csrf-token', function() {
 // Auth
 Route::post('/auth/signup', [RegisteredUserController::class, 'store']);
 Route::post('/auth/login', [SessionController::class, 'store']);
-Route::post('/auth/logout', [SessionController::class, 'destroy']);
+//Route::post('/auth/logout', [SessionController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/auth/logout', [SessionController::class, 'destroy']);
+});
 
 // User Data
 Route::group([

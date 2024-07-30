@@ -9,6 +9,7 @@ class SessionController extends Controller
 {
     public function store()
     {
+        // Login Logic
         try {
             // validate
             $attributes = request()->validate([
@@ -20,7 +21,7 @@ class SessionController extends Controller
                 // throw ValidationException::withMessages([
                 // 'email' => 'Sorry, those credentials do not match.',
                 // ]);
-                return response()->json('Sorry, those credentials do not match');
+                return response()->json('Sorry, those credentials do not match', 401);
             }
 
 //            request()->session()->regenerate();
@@ -45,22 +46,24 @@ class SessionController extends Controller
         $userData = auth()->user();
 
         return response()->json([
-            'status' => true,
-            'message' => 'Profile info',
-            'data' => $userData,
-            'id' => auth()->user()->id
+            'data' => $userData
         ]);
     }
 
     public function destroy()
     {
-//        Auth::logout();
-        auth()->user()->tokens()->delete();
+        // Logout Logic
+        $user = auth()->user();
 
-        return response()->json([
-            'status' => true,
-            'message' => 'User logged out successfully',
-            'data' => []
-        ]);
+        if ($user) {
+            $user->tokens()->delete();
+            return response([
+                'message' => 'Successfully logged out'
+            ], 200);
+        }
+
+        return response([
+            'message' => 'No authenticated user'
+        ], 401);
     }
 }
