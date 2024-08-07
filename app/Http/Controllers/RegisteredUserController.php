@@ -9,7 +9,7 @@ class RegisteredUserController extends Controller
     public function store () {
         try {
             $attributes = request()->validate([
-                'username' => ['required', 'min:3'],
+                'username' => ['required', 'min:3', 'unique:users,username'],
                 'email' => ['required', 'email', 'unique:users,email'],
                 'password' => ['required', Password::min(6), 'confirmed']
             ]);
