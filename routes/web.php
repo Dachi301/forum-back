@@ -27,22 +27,19 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/logout', [SessionController::class, 'destroy']);
 });
 
-// User Data
+// Token Authentication, Laravel Sanctum
 Route::group([
     'middleware' => ['auth:sanctum']
 ], function () {
     Route::get('me', [SessionController::class, 'me']);
+    Route::post('/questions/{questionId}/like-unlike-question', [LikeController::class, 'store']);
 });
-
-// Like and Dislike Functionality
-Route::post('/questions/{questionId}/like-unlike-question', [LikeController::class, 'store'])
-    ->middleware('auth');
 
 // GET questions
 Route::get('/questions', [QuestionController::class, 'index']);
 Route::get('/questions/{questionId}', [QuestionController::class, 'show']);
 
-// Upload Question
+// Upload Question (Sanctum auth gasaweria)
 Route::post('/upload', [QuestionController::class, 'store'])->middleware('auth');
 
 // GET Tags

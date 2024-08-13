@@ -17,7 +17,7 @@ class QuestionController extends Controller
 
     public function show($id)
     {
-        $question = Question::with(['user', 'tags'])->findOrFail($id);
+        $question = Question::with(['user', 'tags', 'likes'])->findOrFail($id);
         return response()->json($question);
     }
 
