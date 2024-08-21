@@ -39,8 +39,8 @@ Route::group([
 Route::get('/questions', [QuestionController::class, 'index']);
 Route::get('/questions/{questionId}', [QuestionController::class, 'show']);
 
-// Upload Question (Sanctum auth gasaweria)
-Route::post('/upload', [QuestionController::class, 'store'])->middleware('auth');
+// Upload Question
+Route::middleware('auth:sanctum')->post('/upload', [QuestionController::class, 'store']);
 
 // GET Tags
 Route::get('/tags', [TagController::class, 'index']);
