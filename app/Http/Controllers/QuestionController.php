@@ -23,6 +23,23 @@ class QuestionController extends Controller
         return response()->json($question, 200);
     }
 
+    public function userQuestions()
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User is not authenticated.'
+            ], 401);
+        }
+        $questions = $user->questions()->with(['user', 'tags', 'likes', 'comments.replies'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json($questions, 200);
+    }
+
     public function store(Request $request)
     {
         $attributes = $request->validate([

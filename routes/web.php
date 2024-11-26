@@ -39,6 +39,9 @@ Route::group([
 Route::get('/questions', [QuestionController::class, 'index']);
 Route::get('/questions/{questionId}', [QuestionController::class, 'show']);
 
+// Specific user's questions
+Route::get('/user/questions', [QuestionController::class, 'userQuestions'])->middleware('auth:sanctum');
+
 // Upload Question
 Route::middleware('auth:sanctum')->post('/upload', [QuestionController::class, 'store']);
 
