@@ -1,3 +1,26 @@
+## Getting Started
+
+To set up the project, follow these steps:
+
+1. **Install dependencies**  
+
+   Run the following command to install Composer dependencies:
+   
+   ```bash
+   composer install
+2. **Set up the environment file**  
+
+   Copy the example .env file to .env:
+
+   ```bash
+   cp .env.example .env
+3. **Generate the application key**  
+
+   Use Artisan to generate the application key:
+
+   ```bash
+   php artisan key:generate
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
